@@ -11,20 +11,9 @@ import (
 )
 
 type Reading struct {
-	Summary string `json:"Summary"`
+	Summary string `json:"Horoscope"`
 	Date    string `json:"Date"`
 	Sign    string `json:"Sign"`
-}
-
-type Response struct {
-	Message []struct {
-		Main string
-	}
-	Main struct {
-		Summary string `json:"Summary"`
-		Date    string `json:"Date"`
-		Sign    string `json:"Sign"`
-	}
 }
 
 type Client struct {
@@ -71,20 +60,16 @@ func (c *Client) GetReading(sign string) (Reading, error) {
 }
 
 func ParseResponse(data []byte) (Reading, error) {
-	var resp Response
+	var resp Reading
 	err := json.Unmarshal(data, &resp)
 	if err != nil {
 		return Reading{}, fmt.Errorf("invalid api response %s: %w", data, err)
 	}
 
-	if len(resp.Message) < 1 {
-		return Reading{}, fmt.Errorf("invalid API response %s: require at least one reading element", data)
-	}
-
 	reading := Reading{
-		Summary: resp.Main.Summary,
-		Date:    resp.Main.Date,
-		Sign:    resp.Main.Sign,
+		Summary: resp.Summary,
+		Date:    resp.Date,
+		Sign:    resp.Sign,
 	}
 	return reading, nil
 }
