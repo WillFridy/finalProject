@@ -1,7 +1,7 @@
 package main
 
 import (
-	"labs/finalproject/horoscope"
+	"finalProject/horoscope"
 )
 
 func main() {
