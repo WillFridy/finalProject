@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"math/rand"
 	"net/http"
 	"net/url"
 	"os"
@@ -88,15 +87,6 @@ func Get(sign string) (Reading, error) {
 	return readings, nil
 }
 
-func randomNums() (nums []int) {
-	i := 0
-	for i < 5 {
-		randNum := rand.Intn(100)
-		nums = append(nums, randNum)
-		i++
-	}
-	return nums
-}
 func RunCLI(sign string) (Reading, error) {
 
 	readings, err := Get(sign)

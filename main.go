@@ -4,9 +4,20 @@ import (
 	"finalProject/horoscope"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"sync"
 )
+
+func randomNums() (nums []int) {
+	i := 0
+	for i < 5 {
+		randNum := rand.Intn(100)
+		nums = append(nums, randNum)
+		i++
+	}
+	return nums
+}
 
 func main() {
 	db := database{data: map[string]string{"libra": "ligma"}}
@@ -28,5 +39,9 @@ func (db *database) create(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Fatal("shit went wrong")
 	}
-	fmt.Fprintf(w, "%s \n", readings)
+	Numbers := randomNums()
+	fmt.Fprintf(w, "Date: %s \n", readings.Date)
+	fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
+	fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
+	fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
 }
