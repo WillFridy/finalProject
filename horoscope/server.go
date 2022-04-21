@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"math/rand"
 	"net/http"
 	"net/url"
 	"os"
@@ -87,6 +88,15 @@ func Get(sign string) (Reading, error) {
 	return readings, nil
 }
 
+func randomNums() (nums []int) {
+	i := 0
+	for i < 5 {
+		randNum := rand.Intn(100)
+		nums = append(nums, randNum)
+		i++
+	}
+	return nums
+}
 func RunCLI() {
 	if len(os.Args) == 0 {
 		fmt.Fprintf(os.Stderr, "Usage: %s SIGN\n\nExample: %[1]s Aries", os.Args[0])
@@ -98,5 +108,10 @@ func RunCLI() {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("Date: %s, Sign: %s, Summary: %s", readings.Date, readings.Sign, readings.Summary)
+	nums := randomNums()
+
+	fmt.Println("Date: ", readings.Date)
+	fmt.Println("Sign: ", readings.Sign)
+	fmt.Println("Horoscope: ", readings.Summary)
+	fmt.Println("Lucky Numbers: ", nums)
 }
