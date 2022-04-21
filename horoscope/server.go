@@ -97,21 +97,13 @@ func randomNums() (nums []int) {
 	}
 	return nums
 }
-func RunCLI() {
-	if len(os.Args) == 0 {
-		fmt.Fprintf(os.Stderr, "Usage: %s SIGN\n\nExample: %[1]s Aries", os.Args[0])
-	}
-	sign := os.Args[1]
+func RunCLI(sign string) (Reading, error) {
 
 	readings, err := Get(sign)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-	nums := randomNums()
 
-	fmt.Println("Date: ", readings.Date)
-	fmt.Println("Sign: ", readings.Sign)
-	fmt.Println("Horoscope: ", readings.Summary)
-	fmt.Println("Lucky Numbers: ", nums)
+	return readings, nil
 }
