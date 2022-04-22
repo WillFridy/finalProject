@@ -40,7 +40,7 @@ type database struct {
 }
 
 func (db *database) create(w http.ResponseWriter, req *http.Request) {
-	signList := []string{"aries", "aauras", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "picses"}
+	signList := []string{"aries", "tauras", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "pisces"}
 	db.Lock()
 	defer db.Unlock()
 	newSign := req.URL.Query().Get("sign")
@@ -56,7 +56,7 @@ func (db *database) create(w http.ResponseWriter, req *http.Request) {
 		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
 		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
 	} else {
-		log.Fatal("Sign Not Recognized \n")
+		fmt.Fprintf(w, "Sign Not Recognized \n")
 	}
 	
 }
