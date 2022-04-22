@@ -19,8 +19,16 @@ func randomNums() (nums []int) {
 	return nums
 }
 
+func checkSign(signList []string,str string) bool {
+	for _, v := range signList {
+		if v == str {
+			return true
+		}
+	}
+	return false
+}
 func main() {
-	db := database{data: map[string]string{"libra": "ligma"}}
+	db := database{data: map[string]string{"fill": "fill"}}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/create", db.create)
 	log.Fatal(http.ListenAndServe("localhost:8000", mux))
@@ -32,16 +40,23 @@ type database struct {
 }
 
 func (db *database) create(w http.ResponseWriter, req *http.Request) {
+	signList := []string{"aries", "aauras", "gemini", "cancer", "leo", "virgo", "libra", "scorpio", "sagittarius", "capricorn", "aquarius", "picses"}
 	db.Lock()
 	defer db.Unlock()
 	newSign := req.URL.Query().Get("sign")
-	readings, err := horoscope.RunCLI(newSign)
-	if err != nil {
-		log.Fatal("shit went wrong")
+
+	if checkSign(signList, newSign) {
+		readings, err := horoscope.RunCLI(newSign)
+		if err != nil {
+			log.Fatal("Something went horribly wrong \n")
+		}
+		Numbers := randomNums()
+		fmt.Fprintf(w, "Date: %s \n", readings.Date)
+		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
+		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
+		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
+	} else {
+		log.Fatal("Sign Not Recognized \n")
 	}
-	Numbers := randomNums()
-	fmt.Fprintf(w, "Date: %s \n", readings.Date)
-	fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-	fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-	fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
+	
 }
