@@ -3,12 +3,30 @@ package main
 import (
 	"finalProject/horoscope"
 	"fmt"
+	"html/template"
 	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
 	"sync"
 )
+
+var tmpl *template.Template
+
+type SignInfo struct {
+	Data     string
+	Sign     string
+	Summery  string
+	LuckyNum []int
+}
+
+type PageData struct {
+	Title    string
+	Date     string
+	Sign     string
+	Summery  string
+	LuckyNum []int
+}
 
 func randomNums() (nums []int) {
 	i := 0
@@ -55,10 +73,20 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 			log.Fatal("Something went horribly wrong \n")
 		}
 		Numbers := randomNums()
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
+		data := PageData{
+			Title:    readings.Sign,
+			Date:     readings.Date,
+			Sign:     readings.Sign,
+			Summery:  readings.Summary,
+			LuckyNum: Numbers,
+		}
+		t, _ := template.ParseFiles("index.html")
+		t.Execute(w, data)
+
+		// fmt.Fprintf(w, "Date: %s \n", readings.Date)
+		// fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
+		// fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
+		// fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
 	} else {
 		fmt.Fprintf(w, "Sign Not Recognized \n")
 	}
