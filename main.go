@@ -103,10 +103,9 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 			log.Fatal("Something went wrong \n")
 		}
 		data := PageData{
-			Title:    readings.Sign,
 			Date:     readings.Date,
 			Sign:     readings.Sign,
-			Summery:  readings.Summary,
+			Summary:  readings.Summary,
 			LuckyNum: numbers,
 		}
 		t, _ := template.ParseFiles("index.html")
