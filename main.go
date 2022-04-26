@@ -110,10 +110,15 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 		if err != nil {
 			log.Fatal("Something went wrong \n")
 		}
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", numbers)
+		data := PageData{
+			Title:    readings.Sign,
+			Date:     readings.Date,
+			Sign:     readings.Sign,
+			Summery:  readings.Summary,
+			LuckyNum: numbers,
+		}
+		t, _ := template.ParseFiles("index.html")
+		t.Execute(w, data)
 	}
 }
 
