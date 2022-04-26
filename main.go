@@ -52,7 +52,7 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 	if checkSign(signList, newSign) {
 		readings, err := horoscope.RunCLI(newSign)
 		if err != nil {
-			log.Fatal("Something went horribly wrong \n")
+			log.Fatal("Something went wrong \n")
 		}
 		Numbers := randomNums()
 		fmt.Fprintf(w, "Date: %s \n", readings.Date)
