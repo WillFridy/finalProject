@@ -88,12 +88,10 @@ func Get(sign string) (Reading, error) {
 }
 
 func RunCLI(sign string) (Reading, error) {
-
 	readings, err := Get(sign)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
-
 	return readings, nil
 }
