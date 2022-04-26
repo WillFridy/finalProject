@@ -8,23 +8,16 @@ import (
 	"math/rand"
 	"net/http"
 	"strconv"
+	"strings"
 	"sync"
 )
 
 var tmpl *template.Template
 
-type SignInfo struct {
-	Data     string
-	Sign     string
-	Summery  string
-	LuckyNum []int
-}
-
 type PageData struct {
-	Title    string
 	Date     string
 	Sign     string
-	Summery  string
+	Summary  string
 	LuckyNum []int
 }
 
@@ -74,13 +67,12 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 		}
 		Numbers := randomNums()
 		data := PageData{
-			Title:    readings.Sign,
 			Date:     readings.Date,
-			Sign:     readings.Sign,
-			Summery:  readings.Summary,
+			Sign:     strings.Title(readings.Sign),
+			Summary:  readings.Summary,
 			LuckyNum: Numbers,
 		}
-		t, _ := template.ParseFiles("index.html")
+		t, _ := template.ParseFiles("Website.html")
 		t.Execute(w, data)
 
 		// fmt.Fprintf(w, "Date: %s \n", readings.Date)
