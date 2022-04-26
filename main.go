@@ -48,7 +48,7 @@ func checkSign(signList []string, str string) bool {
 }
 
 func main() {
-	db := database{data: map[string]string{"fill": "fill"}}
+	db := database{data: map[string]string{"name": "bday"}}
 	mux := http.NewServeMux()
 	mux.HandleFunc("/read", db.read)
 	mux.HandleFunc("/bday", db.bday)
@@ -95,108 +95,64 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 	db.Lock()
 	defer db.Unlock()
-	Numbers := randomNums()
+	numbers := randomNums()
 	tempday := req.URL.Query().Get("day")
 	d, _ := strconv.ParseFloat(tempday, 64)
 	day := int(d)
 	tempmonth := req.URL.Query().Get("month")
 	m, _ := strconv.ParseFloat(tempmonth, 64)
 	month := int(m)
-
-	if (month == 1 && day <= 19) || (month == 12 && day >= 19) {
-		readings, _ := horoscope.RunCLI("capricorn")
+	sign := checkBday(month, day)
+	if sign == "no symbol found" {
+		fmt.Fprintf(w, "Sign not found for your birthday \n")
+	} else {
+		readings, err := horoscope.RunCLI(sign)
+		if err != nil {
+			log.Fatal("Something went wrong \n")
+		}
 		fmt.Fprintf(w, "Date: %s \n", readings.Date)
 		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
 		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		fmt.Fprintf(w, "Lucky Numbers: %d \n", numbers)
+	}
+}
+
+func checkBday(month, day int) string {
+	if (month == 1 && day <= 19) || (month == 12 && day >= 19) {
+		return "capricorn"
 	}
 	if (month == 1 && day >= 20) || (month == 2 && day <= 18) {
-		readings, _ := horoscope.RunCLI("aquarius")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "aquarius"
 	}
 	if (month == 2 && day >= 19) || (month == 3 && day <= 20) {
-		readings, _ := horoscope.RunCLI("pisces")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "pisces"
 	}
 	if (month == 3 && day >= 21) || (month == 4 && day <= 19) {
-		readings, _ := horoscope.RunCLI("aries")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "aries"
 	}
 	if (month == 4 && day >= 20) || (month == 5 && day <= 20) {
-		readings, _ := horoscope.RunCLI("taurus")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "taurus"
 	}
 	if (month == 5 && day >= 21) || (month == 6 && day <= 21) {
-		readings, _ := horoscope.RunCLI("gemini")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "gemini"
 	}
 	if (month == 6 && day >= 22) || (month == 7 && day <= 22) {
-		readings, _ := horoscope.RunCLI("cancer")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "cancer"
 	}
 	if (month == 7 && day >= 23) || (month == 8 && day <= 22) {
-		readings, _ := horoscope.RunCLI("leo")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "leo"
 	}
 	if (month == 8 && day >= 23) || (month == 9 && day <= 22) {
-		readings, _ := horoscope.RunCLI("virgo")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "virgo"
 	}
 	if (month == 9 && day >= 23) || (month == 10 && day <= 23) {
-		readings, _ := horoscope.RunCLI("libra")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "libra"
 	}
 	if (month == 10 && day >= 24) || (month == 11 && day <= 22) {
-		readings, _ := horoscope.RunCLI("scorpio")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "scorpio"
 	}
 	if (month == 11 && day >= 23) || (month == 12 && day <= 20) {
-		readings, _ := horoscope.RunCLI("sagitarrius")
-		fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
-		fmt.Fprintf(w, "Birthday:  %d/%d \n", month, day)
+		return "sagittarius"
 	}
+	return "no symbol found"
 }
