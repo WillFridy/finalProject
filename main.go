@@ -12,8 +12,6 @@ import (
 	"sync"
 )
 
-var tmpl *template.Template
-
 type PageData struct {
 	Date     string
 	Sign     string
@@ -43,6 +41,7 @@ func checkSign(signList []string, str string) bool {
 func main() {
 	db := database{data: map[string]string{"name": "bday"}}
 	mux := http.NewServeMux()
+	mux.HandleFunc("/home", db.home)
 	mux.HandleFunc("/read", db.read)
 	mux.HandleFunc("/bday", db.bday)
 	log.Fatal(http.ListenAndServe(":8000", mux))
@@ -51,6 +50,19 @@ func main() {
 type database struct {
 	sync.Mutex
 	data map[string]string
+}
+
+func (db *database) home(w http.ResponseWriter, req *http.Request) {
+	db.Lock()
+	defer db.Unlock()
+	t, err := template.ParseFiles("Website.html")
+	data := PageData{
+		Date:    "",
+		Sign:    "",
+		Summary: "",
+	}
+	fmt.Println(err)
+	t.Execute(w, data)
 }
 
 func (db *database) read(w http.ResponseWriter, req *http.Request) {
