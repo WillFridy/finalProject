@@ -1,7 +1,9 @@
 FROM golang:1.17-alpine AS build
+# FROM httpd:latest
 EXPOSE 8000
 
 # COPY horoscope /go/src/finalProject/horoscope
+# COPY /Website.html /user/local/apache2/htdocs/
 
 WORKDIR /finalProject/
 
@@ -13,12 +15,14 @@ RUN go mod download
 
 # COPY horoscope ./
 # ADD main.go ./
-# ADD Website.html ./
+#COPY Website.html /user/local/apache2/htdocs/
 
 
-RUN CGO_ENABLED=0 go build -o /main
+# RUN CGO_ENABLED=0 go build -o /main
 
-FROM alpine
-COPY --from=build /main /main
+# FROM alpine
+# COPY --from=build /main /main
 
-ENTRYPOINT ["/main"]
+CMD [ "go", "run", "main.go" ]
+
+# ENTRYPOINT ["/main"]
