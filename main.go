@@ -19,6 +19,7 @@ type PageData struct {
 	Sign     string
 	Summary  string
 	LuckyNum []int
+	Images   string
 }
 
 func randomNums() (nums []int) {
@@ -65,12 +66,14 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 		if err != nil {
 			log.Fatal("Something went wrong \n")
 		}
+		NewPicture := pictures(newSign)
 		Numbers := randomNums()
 		data := PageData{
 			Date:     readings.Date,
 			Sign:     strings.Title(readings.Sign),
 			Summary:  readings.Summary,
 			LuckyNum: Numbers,
+			Images:   NewPicture,
 		}
 		t, err := template.ParseFiles("Website.html")
 		fmt.Println(err)
@@ -152,4 +155,44 @@ func checkBday(month, day int) string {
 		return "sagittarius"
 	}
 	return "no symbol found"
+}
+
+func pictures(sign string) string {
+	if sign == "capricorn" {
+		return ""
+	}
+	if sign == "aquarius" {
+		return ""
+	}
+	if sign == "pisces" {
+		return ""
+	}
+	if sign == "aries" {
+		return ""
+	}
+	if sign == "taurus" {
+		return ""
+	}
+	if sign == "gemini" {
+		return ""
+	}
+	if sign == "cancer" {
+		return ""
+	}
+	if sign == "leo" {
+		return ""
+	}
+	if sign == "virgo" {
+		return ""
+	}
+	if sign == "libra" {
+		return ""
+	}
+	if sign == "scorpio" {
+		return ""
+	}
+	if sign == "sagittarius" {
+		return ""
+	}
+	return "Not Found"
 }
