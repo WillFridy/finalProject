@@ -45,7 +45,7 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/read", db.read)
 	mux.HandleFunc("/bday", db.bday)
-	log.Fatal(http.ListenAndServe("localhost:8000", mux))
+	log.Fatal(http.ListenAndServe(":8000", mux))
 }
 
 type database struct {
@@ -72,7 +72,8 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 			Summary:  readings.Summary,
 			LuckyNum: Numbers,
 		}
-		t, _ := template.ParseFiles("Website.html")
+		t, err := template.ParseFiles("Website.html")
+		fmt.Println(err)
 		t.Execute(w, data)
 
 		// fmt.Fprintf(w, "Date: %s \n", readings.Date)
@@ -108,7 +109,7 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 			Summary:  readings.Summary,
 			LuckyNum: numbers,
 		}
-		t, _ := template.ParseFiles("index.html")
+		t, _ := template.ParseFiles("Website.html")
 		t.Execute(w, data)
 	}
 }
