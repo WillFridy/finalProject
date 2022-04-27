@@ -192,7 +192,7 @@ func pictures(sign string) string {
 		return ""
 	}
 	if sign == "leo" {
-		return ""
+		return "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Leo_symbol_%28bold%29.svg/1200px-Leo_symbol_%28bold%29.svg.png"
 	}
 	if sign == "virgo" {
 		return ""
