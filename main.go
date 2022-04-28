@@ -22,6 +22,14 @@ const (
 	mongodbEndpoint = "mongodb://10.0.2.15:32488" // Find this from the Mongo container
 )
 
+var tmpl *template.Template
+
+var userSign string 
+
+type Post struct {
+	Compatability string `bson:"compatability"`
+}
+
 type PageData struct {
 	Date     string
 	Sign     string
@@ -52,6 +60,7 @@ func checkSign(signList []string, str string) bool {
 func main() {
 	db := database{data: map[string]string{"name": "bday"}}
 	mux := http.NewServeMux()
+	mux.HandleFunc("/comp", db.compatability)
 	mux.HandleFunc("/home", db.home)
 	mux.HandleFunc("/read", db.read)
 	mux.HandleFunc("/bday", db.bday)
