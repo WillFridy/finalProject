@@ -10,6 +10,16 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"go.mongodb.org/mongo-driver/bson"
+	//"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"time"
+	"context"
+)
+
+const (
+	mongodbEndpoint = "mongodb://10.0.2.15:32488" // Find this from the Mongo container
 )
 
 type PageData struct {
@@ -75,6 +85,7 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 
 	if checkSign(signList, newSign) {
 		readings, err := horoscope.RunCLI(newSign)
+		userSign = newSign
 		if err != nil {
 			log.Fatal("Something went wrong \n")
 		}
@@ -115,6 +126,7 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 		fmt.Fprintf(w, "Sign not found for your birthday \n")
 	} else {
 		readings, err := horoscope.RunCLI(sign)
+		userSign = sign
 		if err != nil {
 			log.Fatal("Something went wrong \n")
 		}
@@ -127,6 +139,29 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 		t, _ := template.ParseFiles("Website.html")
 		t.Execute(w, data)
 	}
+}
+
+func (db *database) compatability(w http.ResponseWriter, req *http.Request){
+	client, err := mongo.NewClient(
+		options.Client().ApplyURI(mongodbEndpoint),
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+	userSign = "cancer"
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	err = client.Connect(ctx)
+
+	defer client.Disconnect(ctx)
+
+	col := client.Database("myDB").Collection("signs")
+
+	filter := bson.D{{"sign", userSign}}
+
+	var res Post
+	err = col.FindOne(ctx, filter).Decode(&res)
+	//fmt.Println(res)
+	fmt.Println(strings.Trim(fmt.Sprint(res), "{}"))
 }
 
 func checkBday(month, day int) string {
