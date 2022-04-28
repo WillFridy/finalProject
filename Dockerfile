@@ -3,6 +3,8 @@ EXPOSE 8000
 
 WORKDIR /finalProject/
 COPY . .
+
 RUN go mod download
 
-CMD ["go", "run", "main.go"]
+
+CMD [ "go", "run", "main.go" ]

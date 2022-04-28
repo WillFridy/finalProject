@@ -22,19 +22,12 @@ const (
 	mongodbEndpoint = "mongodb://10.0.2.15:32488" // Find this from the Mongo container
 )
 
-var tmpl *template.Template
-
-var userSign string 
-
-type Post struct {
-	Compatability string `bson:"compatability"`
-}
-
 type PageData struct {
 	Date     string
 	Sign     string
 	Summary  string
 	LuckyNum []int
+	Images   string
 }
 
 func randomNums() (nums []int) {
@@ -59,15 +52,28 @@ func checkSign(signList []string, str string) bool {
 func main() {
 	db := database{data: map[string]string{"name": "bday"}}
 	mux := http.NewServeMux()
-	mux.HandleFunc("/comp", db.compatability)
+	mux.HandleFunc("/home", db.home)
 	mux.HandleFunc("/read", db.read)
 	mux.HandleFunc("/bday", db.bday)
-	log.Fatal(http.ListenAndServe("localhost:8000", mux))
+	log.Fatal(http.ListenAndServe(":8000", mux))
 }
 
 type database struct {
 	sync.Mutex
 	data map[string]string
+}
+
+func (db *database) home(w http.ResponseWriter, req *http.Request) {
+	db.Lock()
+	defer db.Unlock()
+	t, err := template.ParseFiles("Website.html")
+	data := PageData{
+		Date:    "",
+		Sign:    "",
+		Summary: "",
+	}
+	fmt.Println(err)
+	t.Execute(w, data)
 }
 
 func (db *database) read(w http.ResponseWriter, req *http.Request) {
@@ -83,14 +89,17 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 		if err != nil {
 			log.Fatal("Something went wrong \n")
 		}
+		NewPicture := pictures(newSign)
 		Numbers := randomNums()
 		data := PageData{
 			Date:     readings.Date,
 			Sign:     strings.Title(readings.Sign),
 			Summary:  readings.Summary,
 			LuckyNum: Numbers,
+			Images:   NewPicture,
 		}
-		t, _ := template.ParseFiles("Website.html")
+		t, err := template.ParseFiles("Website.html")
+		fmt.Println(err)
 		t.Execute(w, data)
 
 		// fmt.Fprintf(w, "Date: %s \n", readings.Date)
@@ -127,7 +136,7 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 			Summary:  readings.Summary,
 			LuckyNum: numbers,
 		}
-		t, _ := template.ParseFiles("index.html")
+		t, _ := template.ParseFiles("Website.html")
 		t.Execute(w, data)
 	}
 }
@@ -193,4 +202,44 @@ func checkBday(month, day int) string {
 		return "sagittarius"
 	}
 	return "no symbol found"
+}
+
+func pictures(sign string) string {
+	if sign == "capricorn" {
+		return ""
+	}
+	if sign == "aquarius" {
+		return ""
+	}
+	if sign == "pisces" {
+		return ""
+	}
+	if sign == "aries" {
+		return ""
+	}
+	if sign == "taurus" {
+		return ""
+	}
+	if sign == "gemini" {
+		return ""
+	}
+	if sign == "cancer" {
+		return ""
+	}
+	if sign == "leo" {
+		return "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Leo_symbol_%28bold%29.svg/1200px-Leo_symbol_%28bold%29.svg.png"
+	}
+	if sign == "virgo" {
+		return ""
+	}
+	if sign == "libra" {
+		return "https://www.dictionary.com/e/wp-content/uploads/2021/09/20210915_libra__1000x700.png"
+	}
+	if sign == "scorpio" {
+		return ""
+	}
+	if sign == "sagittarius" {
+		return ""
+	}
+	return "Not Found"
 }
