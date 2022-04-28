@@ -215,40 +215,40 @@ func checkBday(month, day int) string {
 
 func pictures(sign string) string {
 	if sign == "capricorn" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-capricorn-265x300.png"
 	}
 	if sign == "aquarius" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-aquarius-300x145.png"
 	}
 	if sign == "pisces" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-pisces-150x150.png"
 	}
 	if sign == "aries" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-aries-150x150.png"
 	}
 	if sign == "taurus" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-taurus-285x300.png"
 	}
 	if sign == "gemini" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-gemini-255x300.png"
 	}
 	if sign == "cancer" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-cancer-300x207.png"
 	}
 	if sign == "leo" {
-		return "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Leo_symbol_%28bold%29.svg/1200px-Leo_symbol_%28bold%29.svg.png"
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-leo-199x300.png"
 	}
 	if sign == "virgo" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-virgo-279x300.png"
 	}
 	if sign == "libra" {
-		return "https://www.dictionary.com/e/wp-content/uploads/2021/09/20210915_libra__1000x700.png"
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-libra-300x176.png"
 	}
 	if sign == "scorpio" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-scorpio-262x300.png"
 	}
 	if sign == "sagittarius" {
-		return ""
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-sagittarius-300x232.png"
 	}
 	return "Not Found"
 }
