@@ -158,7 +158,7 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 			LuckyNum: numbers,
 			Images:   NewPicture,
 		}
-		t, _ := template.ParseFiles("Website.html")
+		t, _ := template.ParseFiles("BDay.html")
 		t.Execute(w, data)
 	}
 }
@@ -240,6 +240,46 @@ func checkBday(month, day int) string {
 func pictures(sign string) string {
 	if sign == "capricorn" {
 		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-capricorn-265x300.png"
+	}
+	if sign == "aquarius" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-aquarius-300x145.png"
+	}
+	if sign == "pisces" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-pisces-150x150.png"
+	}
+	if sign == "aries" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-aries-150x150.png"
+	}
+	if sign == "taurus" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-taurus-285x300.png"
+	}
+	if sign == "gemini" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-gemini-255x300.png"
+	}
+	if sign == "cancer" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-cancer-300x207.png"
+	}
+	if sign == "leo" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-leo-199x300.png"
+	}
+	if sign == "virgo" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-virgo-279x300.png"
+	}
+	if sign == "libra" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-libra-300x176.png"
+	}
+	if sign == "scorpio" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-scorpio-262x300.png"
+	}
+	if sign == "sagittarius" {
+		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-sagittarius-300x232.png"
+	}
+	return "Not Found"
+}
+
+func description(sign string) string {
+	if sign == "capricorn" {
+		return "Capricorns are masters of discipline. The wringing of the hands, the constant reminders, the exacting structure, the ever-increasing goals, the tidal wave of self-criticism that lasts forever. /n They are the ultimate perfectionist. They can be so absorbed in their own internal monologue that it becomes impossible to get them to look away from themselves. Capricorns are often called “workaholics.” "
 	}
 	if sign == "aquarius" {
 		return "https://astrostyle.com/wp-content/uploads/2020/07/signs-glyphs-aquarius-300x145.png"
