@@ -121,9 +121,11 @@
                 <div class="w3-modal-content">
                     <span class="close">&times;</span>
                     <p style="color:black">To get started enter your birthday.</h1>
-                        <form action="/action_page.php">
-                            <label for="bDay" style="color:black">Date of Birth (m/dd)</label><br>
-                            <input type="text" id="bDay" name="bDay" placeholder="m/dd">
+                        <form action="/bday">
+                            <label for="month" style="color:black">Birth Month)</label><br>
+                            <input type="text" id="month" name="month" placeholder="m">
+                            <label for="day" style="color:black">Birth Day)</label><br>
+                            <input type="text" id="day" name="day" placehold="d">
                             <input type="submit" value="Submit"><br><br>
                         </form>
                 </div>
@@ -139,11 +141,11 @@
                     <h1>Daily Horoscope</h1>
                     <h5 class="w3-padding-32">{{.Sign}}</h5>
 
-                    <p class="w3-text-grey">hiihih</p>
+                    <p class="w3-text-grey">{{.Summary}}</p>
                 </div>
 
                 <div class="w3-third w3-center">
-                    <img src={ {.Images}} alt="alternatetext" width="500" height="600">
+                    <img src={{.Images}} alt="alternatetext" width="300" height="450">
 
                 </div>
             </div>

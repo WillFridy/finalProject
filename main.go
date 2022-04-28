@@ -10,12 +10,15 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+
 	"go.mongodb.org/mongo-driver/bson"
+
 	//"go.mongodb.org/mongo-driver/bson/primitive"
+	"context"
+	"time"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
-	"context"
 )
 
 const (
@@ -24,7 +27,7 @@ const (
 
 var tmpl *template.Template
 
-var userSign string 
+var userSign string
 
 type Post struct {
 	Compatability string `bson:"compatability"`
@@ -127,10 +130,14 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 	tempday := req.URL.Query().Get("day")
 	d, _ := strconv.ParseFloat(tempday, 64)
 	day := int(d)
+
 	tempmonth := req.URL.Query().Get("month")
 	m, _ := strconv.ParseFloat(tempmonth, 64)
 	month := int(m)
+
 	sign := checkBday(month, day)
+	NewPicture := pictures(sign)
+
 	if sign == "no symbol found" {
 		fmt.Fprintf(w, "Sign not found for your birthday \n")
 	} else {
@@ -141,16 +148,17 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 		}
 		data := PageData{
 			Date:     readings.Date,
-			Sign:     readings.Sign,
+			Sign:     strings.Title(readings.Sign),
 			Summary:  readings.Summary,
 			LuckyNum: numbers,
+			Images:   NewPicture,
 		}
 		t, _ := template.ParseFiles("Website.html")
 		t.Execute(w, data)
 	}
 }
 
-func (db *database) compatability(w http.ResponseWriter, req *http.Request){
+func (db *database) compatability(w http.ResponseWriter, req *http.Request) {
 	client, err := mongo.NewClient(
 		options.Client().ApplyURI(mongodbEndpoint),
 	)
