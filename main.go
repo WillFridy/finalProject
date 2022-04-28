@@ -28,6 +28,7 @@ const (
 var tmpl *template.Template
 
 var userSign string
+var Numbers []int
 
 type Post struct {
 	Compatability string `bson:"compatability"`
@@ -40,6 +41,8 @@ type PageData struct {
 	LuckyNum []int
 	Images   string
 	Comp     string
+	Month    int
+	Day      int
 }
 
 func randomNums() (nums []int) {
@@ -63,7 +66,7 @@ func checkSign(signList []string, str string) bool {
 
 func main() {
 	db := database{data: map[string]string{"name": "bday"}}
-
+	Numbers = randomNums()
 	mux := http.NewServeMux()
 	mux.HandleFunc("/comp", db.compatability)
 	mux.HandleFunc("/home", db.home)
@@ -98,20 +101,20 @@ func (db *database) about(w http.ResponseWriter, req *http.Request) {
 
 }
 func (db *database) read(w http.ResponseWriter, req *http.Request) {
-	signList := []string{"aries", "tauras", "gemini", "cancer", "leo", "virgo", "libra",
-		"scorpio", "sagittarius", "capricorn", "aquarius", "pisces"}
+	//signList := []string{"aries", "tauras", "gemini", "cancer", "leo", "virgo", "libra",
+	//	"scorpio", "sagittarius", "capricorn", "aquarius", "pisces"}
 	db.Lock()
 	defer db.Unlock()
 	sign := userSign
 
-	if checkSign(signList, sign) {
+	if userSign != "" {
 		readings, err := horoscope.RunCLI(sign)
 		userSign = sign
 		if err != nil {
 			log.Fatal("Something went wrong \n")
 		}
 		NewPicture := pictures(sign)
-		Numbers := randomNums()
+
 		data := PageData{
 			Date:     readings.Date,
 			Sign:     strings.Title(readings.Sign),
@@ -131,7 +134,7 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 	db.Lock()
 	defer db.Unlock()
-	numbers := randomNums()
+
 	tempday := req.URL.Query().Get("day")
 	d, _ := strconv.ParseFloat(tempday, 64)
 	day := int(d)
@@ -140,13 +143,10 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 	m, _ := strconv.ParseFloat(tempmonth, 64)
 	month := int(m)
 
-	sign := checkBday(month, day)
-	NewPicture := pictures(sign)
-
-	if sign == "no symbol found" {
-		fmt.Fprintf(w, "Sign not found for your birthday \n")
-	} else {
+	if userSign == "" {
+		sign := checkBday(month, day)
 		readings, err := horoscope.RunCLI(sign)
+		NewPicture := pictures(sign)
 		userSign = sign
 		if err != nil {
 			log.Fatal("Something went wrong \n")
@@ -155,7 +155,19 @@ func (db *database) bday(w http.ResponseWriter, req *http.Request) {
 			Date:     readings.Date,
 			Sign:     strings.Title(readings.Sign),
 			Summary:  readings.Summary,
-			LuckyNum: numbers,
+			LuckyNum: Numbers,
+			Images:   NewPicture,
+		}
+		t, _ := template.ParseFiles("BDay.html")
+		t.Execute(w, data)
+	} else {
+		readings, _ := horoscope.RunCLI(userSign)
+		NewPicture := pictures(userSign)
+		data := PageData{
+			Date:     readings.Date,
+			Sign:     strings.Title(readings.Sign),
+			Summary:  readings.Summary,
+			LuckyNum: Numbers,
 			Images:   NewPicture,
 		}
 		t, _ := template.ParseFiles("BDay.html")
