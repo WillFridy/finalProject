@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>HoroscopeX</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Lato", sans-serif
+        }
+        
+        .w3-bar,
+        h1,
+        button {
+            font-family: "Montserrat", sans-serif
+        }
+        
+        .fa-anchor,
+        .fa-coffee {
+            font-size: 200px
+        }
+        /* The Modal (background) */
+        
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+        /* Modal Content */
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        /* The Close Button */
+        
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+    
+<body>
+    <!-- Navbar -->
+
+    <div class="w3-top">
+        <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='home'">Home</button>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='read'">About You</a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='comp'">Compatibility</a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='about'">About Us</a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='b.php'">Settings</a>
+        </div>
+
+        <!-- Navbar on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">About You</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Compatibility</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">About Us</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+        </div>
+
+
+
+    </div>
+    <!-- Home Page -->
+    <div id="Home" class="tabcontent">
+
+        <!-- Header -->
+        <header class="w3-container w3-blue w3-center" style="padding:128px 16px">
+            <h1 class="w3-margin w3-jumbo">HoroscopeX</h1>
+            <p class="w3-xlarge">Final Project</p>
+            <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top" id="myBtn">Get Started</button>
+            <!-- The Modal -->
+            <div id="myModal" class="w3-modal">
+
+                <!-- Modal content -->
+                <div class="w3-modal-content">
+                    <span class="close">&times;</span>
+                    <p style="color:black">To get started enter your birthday.</h1>
+                        <form action="/bday">
+                            <label for="month" style="color:black">Birth Month)</label>
+                            <input type="text" id="month" name="month" placeholder="m"><br>
+                            <label for="day" style="color:black">Birth Day)</label>
+                            <input type="text" id="day" name="day" placeholder="d"><br>
+                            <input type="submit" value="Submit"><br><br>
+                        </form>
+                </div>
+
+            </div>
+
+        </header>
+         <!-- First Grid -->
+         <div class="w3-row-padding w3-padding-64 w3-container">
+            <div class="w3-content">
+                <div class="w3-twothird">
+                    <h1>What is HoroscopeX</h1>
+                    <h5 class="w3-padding-32">HoroscopeX is our final project for Ecgr 4090: Cloud Native Architecture </h5>
+
+                    <p class="w3-text-grey">open</p>
+                </div>
+
+                <div class="w3-third w3-center">
+                    <img src=https://cdn.britannica.com/72/223172-131-C3F72804/astrology-horoscope-circle.jpg alt="alternatetext" width="450" height="320">
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Grid -->
+        <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+            <div class="w3-content">
+                <div class="w3-third w3-center">
+                    <i class="fa fa-coffee w3-padding-64 w3-text-blue w3-margin-right"></i>
+                </div>
+
+                <div class="w3-twothird">
+                    <h1>What Does Your Horoscope Tell You?</h1>
+                    <h5 class="w3-padding-32"></h5>
+
+                    <p class="w3-text-grey">Open</p>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        // Used to toggle the menu on small screens when clicking on the menu button
+        function myFunction() {
+            var x = document.getElementById("navDemo");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+
+        //Opens Tabs
+        function openTab(evt, tabName) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+    <button id="myButton" class="float-left submit-button" >Home</button>
+    <script type="text/javascript">
+        document.getElementById("myButton").onclick = function() {
+            location.href = "localhost:8000/home";
+        };
+    </script>   
+</body>
+
+
+</html>

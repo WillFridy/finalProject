@@ -69,7 +69,8 @@ func main() {
 	mux.HandleFunc("/home", db.home)
 	mux.HandleFunc("/read", db.read)
 	mux.HandleFunc("/bday", db.bday)
-	log.Fatal(http.ListenAndServe(":8000", mux))
+	mux.HandleFunc("/about", db.about)
+	log.Fatal(http.ListenAndServe("localhost:8000", mux))
 }
 
 type database struct {
@@ -80,16 +81,22 @@ type database struct {
 func (db *database) home(w http.ResponseWriter, req *http.Request) {
 	db.Lock()
 	defer db.Unlock()
-	t, err := template.ParseFiles("Website.html")
-	data := PageData{
-		Date:    "",
-		Sign:    "",
-		Summary: "",
-	}
+	t, err := template.ParseFiles("Home.html")
+
 	fmt.Println(err)
-	t.Execute(w, data)
+	t.Execute(w, 0)
 }
 
+func (db *database) about(w http.ResponseWriter, req *http.Request) {
+	db.Lock()
+	defer db.Unlock()
+
+	t, err := template.ParseFiles("Home.html")
+
+	fmt.Println(err)
+	t.Execute(w, 0)
+
+}
 func (db *database) read(w http.ResponseWriter, req *http.Request) {
 	signList := []string{"aries", "tauras", "gemini", "cancer", "leo", "virgo", "libra",
 		"scorpio", "sagittarius", "capricorn", "aquarius", "pisces"}
