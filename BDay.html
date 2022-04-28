@@ -10,16 +10,15 @@
             <a href="#" class="w3-bar-item w3-button w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'Home')">Home</button>
             <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'About You')">About You</a>
             <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'Compatibility')">Compatibility</a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'About Us')">About Us</a>
-            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'Settings')">Settings</a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'About Us')">Daily Reading</a>
         </div>
 
         <!-- Navbar on small screens -->
         <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
             <a href="#" class="w3-bar-item w3-button w3-padding-large">About You</a>
             <a href="#" class="w3-bar-item w3-button w3-padding-large">Compatibility</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">About Us</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Daily Reading</a>
+            
         </div>
 
 
@@ -121,16 +120,15 @@
             <a href="#" class="w3-bar-item w3-button w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='home'">Home</button>
                 <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='read'">About You</a>
                 <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='comp'">Compatibility</a>
-                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='about'">About Us</a>
-                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='b.php'">Settings</a>
+                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='bday'">Daily Reading</a>
         </div>
 
         <!-- Navbar on small screens -->
         <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
             <a href="#" class="w3-bar-item w3-button w3-padding-large">About You</a>
             <a href="#" class="w3-bar-item w3-button w3-padding-large">Compatibility</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">About Us</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">Settings</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Daily Reading</a>
+            
         </div>
 
 
@@ -141,7 +139,7 @@
     <div id="About You" class="tabcontent">
         <!-- Header -->
         <header class="w3-container w3-blue w3-center" style="padding:128px 16px">
-            <h1 class="w3-margin w3-jumbo">You are {{.Sign}}</h1>
+            <h1 class="w3-margin w3-jumbo">You are a {{.Sign}}</h1>
             <p class="w3-xlarge"></p>
         </header>
 
@@ -156,7 +154,7 @@
                 </div>
 
                 <div class="w3-third w3-center">
-                    <img src={{.Images}} alt="alternatetext" width="300" height="450">
+                    <img src={{.Images}} alt="alternatetext" width="300" height="300">
                 </div>
             </div>
         </div>
