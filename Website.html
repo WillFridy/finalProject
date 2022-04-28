@@ -30,6 +30,54 @@
         .fa-coffee {
             font-size: 200px
         }
+        /* The Modal (background) */
+        
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+        /* Modal Content */
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        /* The Close Button */
+        
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -65,7 +113,23 @@
         <header class="w3-container w3-blue w3-center" style="padding:128px 16px">
             <h1 class="w3-margin w3-jumbo">HoroscopeX</h1>
             <p class="w3-xlarge">Final Project</p>
-            <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Get Started</button>
+            <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top" id="myBtn">Get Started</button>
+            <!-- The Modal -->
+            <div id="myModal" class="w3-modal">
+
+                <!-- Modal content -->
+                <div class="w3-modal-content">
+                    <span class="close">&times;</span>
+                    <p style="color:black">To get started enter your birthday.</h1>
+                        <form action="/action_page.php">
+                            <label for="bDay" style="color:black">Date of Birth (m/dd)</label><br>
+                            <input type="text" id="bDay" name="bDay" placeholder="m/dd">
+                            <input type="submit" value="Submit"><br><br>
+                        </form>
+                </div>
+
+            </div>
+
         </header>
 
         <!-- First Grid -->
@@ -79,7 +143,7 @@
                 </div>
 
                 <div class="w3-third w3-center">
-                    <img src={ {.images}} alt="alternatetext" width="500" height="600">
+                    <img src={ {.Images}} alt="alternatetext" width="500" height="600">
                 </div>
             </div>
         </div>
@@ -320,6 +384,19 @@
 
         </footer>
     </div>
+
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Some text in the Modal..</p>
+        </div>
+
+    </div>
+
     <script>
         // Used to toggle the menu on small screens when clicking on the menu button
         function myFunction() {
@@ -351,6 +428,32 @@
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(tabName).style.display = "block";
             evt.currentTarget.className += " active";
+        }
+
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
         }
     </script>
 
