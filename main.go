@@ -63,6 +63,7 @@ func checkSign(signList []string, str string) bool {
 
 func main() {
 	db := database{data: map[string]string{"name": "bday"}}
+	
 	mux := http.NewServeMux()
 	mux.HandleFunc("/comp", db.compatability)
 	mux.HandleFunc("/home", db.home)
@@ -268,3 +269,4 @@ func pictures(sign string) string {
 	}
 	return "Not Found"
 }
+

@@ -1,0 +1,51 @@
+[
+    {
+        "sign": "cancer",
+        "compatability": "test information for cancer"
+    },
+    {
+        "sign": "libra",
+        "compatability": "test information for libra"
+    },
+    {
+        "sign": "leo",
+        "compatability": "test information for leo"
+    },
+    {
+        "sign": "capricorn",
+        "compatability": "test information for capricorn"
+    },
+    {
+        "sign": "sagittarius",
+        "compatability": "test information for sagittarius"
+    },
+    {
+        "sign": "pisces",
+        "compatability": "test information for pisces"
+    },
+    {
+        "sign": "aries",
+        "compatability": "test information for aries"
+    },
+    {
+        "sign": "aquarius",
+        "compatability": "test information for aquarius"
+    },
+    {
+        "sign": "virgo",
+        "compatability": "test information for virgo"
+    },
+    {
+        "sign": "scorpio",
+        "compatability": "test information for scorpio"
+    },
+    {
+        "sign": "gemini",
+        "compatability": "test information for gemini"
+    },
+    {
+        "sign": "taurus",
+        "compatability": "test information for taurus"
+    }
+
+]
