@@ -63,7 +63,7 @@ func checkSign(signList []string, str string) bool {
 
 func main() {
 	db := database{data: map[string]string{"name": "bday"}}
-	
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("/comp", db.compatability)
 	mux.HandleFunc("/home", db.home)
@@ -95,7 +95,7 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 		"scorpio", "sagittarius", "capricorn", "aquarius", "pisces"}
 	db.Lock()
 	defer db.Unlock()
-	sign := req.URL.Query().Get("sign")
+	sign := userSign
 
 	if checkSign(signList, sign) {
 		readings, err := horoscope.RunCLI(sign)
@@ -112,7 +112,7 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 			LuckyNum: Numbers,
 			Images:   NewPicture,
 		}
-		t, err := template.ParseFiles("Website.html")
+		t, err := template.ParseFiles("AboutYou.html")
 		fmt.Println(err)
 		t.Execute(w, data)
 
@@ -269,4 +269,3 @@ func pictures(sign string) string {
 	}
 	return "Not Found"
 }
-
