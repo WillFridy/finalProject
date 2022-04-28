@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Navbar -->
+
+    <div class="w3-top">
+        <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'Home')">Home</button>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'About You')">About You</a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'Compatibility')">Compatibility</a>
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="openTab(event, 'About Us')">Daily Reading</a>
+        </div>
+
+        <!-- Navbar on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">About You</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Compatibility</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Daily Reading</a>
+            
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    <title>HoroscopeX</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Lato", sans-serif
+        }
+        
+        .w3-bar,
+        h1,
+        button {
+            font-family: "Montserrat", sans-serif
+        }
+        
+        .fa-anchor,
+        .fa-coffee {
+            font-size: 200px
+        }
+        /* The Modal (background) */
+        
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
+        /* Modal Content */
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+        /* The Close Button */
+        
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    
+    
+    <!-- Navbar -->
+
+    <div class="w3-top">
+        <div class="w3-bar w3-blue w3-card w3-left-align w3-large">
+            <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-blue" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='home'">Home</button>
+                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='read'">About You</a>
+                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='comp'">Compatibility</a>
+                <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-active-white w3-hover-white" onclick="window.location.href='bday'">Daily Reading</a>
+        </div>
+
+        <!-- Navbar on small screens -->
+        <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">About You</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Compatibility</a>
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Daily Reading</a>
+            
+        </div>
+
+
+
+    </div>
+
+    <!-- About You -->
+    <div id="About You" class="tabcontent">
+        <!-- Header -->
+        <header class="w3-container w3-blue w3-center" style="padding:128px 16px">
+            <h1 class="w3-margin w3-jumbo">{{.Sign}}</h1>
+            <p class="w3-xlarge"></p>
+        </header>
+
+        <!-- First Grid -->
+        <div class="w3-row-padding w3-padding-64 w3-container">
+            <div class="w3-content">
+                <div class="w3-twothird">
+                    <h1>Compatability</h1>
+                    <!-- <h5 class="w3-padding-32">{{.Sign}}</h5> -->
+
+                    <p class="w3-text-grey">{{.Comp}}</p>
+                </div>
+
+                <div class="w3-third w3-center">
+                    <img src={{.Images}} alt="alternatetext" width="300" height="300">
+                </div>
+            </div>
+        </div>
+
+        <!-- Second Grid -->
+
+
+        <div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
+            <h1 class="w3-margin w3-xlarge">Lucky Numbers: {{.LuckyNum}}</h1>
+        </div>
+
+        <!-- Footer -->
+
+        </footer>
+
+    </div>
+</body>
+
+</html>
