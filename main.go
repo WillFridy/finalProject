@@ -198,7 +198,7 @@ func pictures(sign string) string {
 		return ""
 	}
 	if sign == "libra" {
-		return ""
+		return "https://www.dictionary.com/e/wp-content/uploads/2021/09/20210915_libra__1000x700.png"
 	}
 	if sign == "scorpio" {
 		return ""
