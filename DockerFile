@@ -1,18 +1,8 @@
 FROM golang:1.17-alpine AS build
 EXPOSE 8000
 
+WORKDIR /finalProject/
+COPY . .
+RUN go mod download
 
-WORKDIR /project/
-ADD . ./
-
-RUN go mod download 
-
-# ADD /grpc-go/ /src/
-# COPY grpc-go/ /src/
-# RUN go env -w GO111MODULE=off
-# RUN go env GOPROXY=http://proxy.golang.org,direct
-RUN CGO_ENABLED=0 go build -o /main
-
-FROM alpine
-COPY --from=build /main /main
-ENTRYPOINT ["/main"]
+CMD ["go", "run", "main.go"]
