@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
         - name: horoscope-service
-          image: williamfridy/finalproject
+          image: williamfridy/finalproject:latest
           ports:
             - containerPort: 8000
 
