@@ -194,6 +194,7 @@ func (db *database) compatability(w http.ResponseWriter, req *http.Request) {
 
 	output := strings.Trim(fmt.Sprint(res), "{}")
 	data := PageData{
+		Sign: userSign,
 		Comp: output,
 	}
 	t, _ := template.ParseFiles("Website.html")
