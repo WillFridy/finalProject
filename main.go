@@ -191,12 +191,15 @@ func (db *database) compatability(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	NewPicture := pictures(userSign)
 	output := strings.Trim(fmt.Sprint(res), "{}")
 	data := PageData{
+		Sign: strings.Title(userSign),
 		Comp: output,
+		Images: NewPicture,
+		LuckyNum: Numbers,
 	}
-	t, _ := template.ParseFiles("Website.html")
+	t, _ := template.ParseFiles("Compatability.html")
 	t.Execute(w, data)
 
 }
