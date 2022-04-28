@@ -39,6 +39,7 @@ type PageData struct {
 	Summary  string
 	LuckyNum []int
 	Images   string
+	Comp     string
 }
 
 func randomNums() (nums []int) {
@@ -93,15 +94,15 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 		"scorpio", "sagittarius", "capricorn", "aquarius", "pisces"}
 	db.Lock()
 	defer db.Unlock()
-	newSign := req.URL.Query().Get("sign")
+	sign := req.URL.Query().Get("sign")
 
-	if checkSign(signList, newSign) {
-		readings, err := horoscope.RunCLI(newSign)
-		userSign = newSign
+	if checkSign(signList, sign) {
+		readings, err := horoscope.RunCLI(sign)
+		userSign = sign
 		if err != nil {
 			log.Fatal("Something went wrong \n")
 		}
-		NewPicture := pictures(newSign)
+		NewPicture := pictures(sign)
 		Numbers := randomNums()
 		data := PageData{
 			Date:     readings.Date,
@@ -114,10 +115,6 @@ func (db *database) read(w http.ResponseWriter, req *http.Request) {
 		fmt.Println(err)
 		t.Execute(w, data)
 
-		// fmt.Fprintf(w, "Date: %s \n", readings.Date)
-		// fmt.Fprintf(w, "Sign: %s \n", readings.Sign)
-		// fmt.Fprintf(w, "Summary: %s \n", readings.Summary)
-		// fmt.Fprintf(w, "Lucky Numbers: %d \n", Numbers)
 	} else {
 		fmt.Fprintf(w, "Sign Not Recognized \n")
 	}
@@ -165,10 +162,12 @@ func (db *database) compatability(w http.ResponseWriter, req *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	userSign = "cancer"
+
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	err = client.Connect(ctx)
-
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer client.Disconnect(ctx)
 
 	col := client.Database("myDB").Collection("signs")
@@ -177,8 +176,17 @@ func (db *database) compatability(w http.ResponseWriter, req *http.Request) {
 
 	var res Post
 	err = col.FindOne(ctx, filter).Decode(&res)
-	//fmt.Println(res)
-	fmt.Println(strings.Trim(fmt.Sprint(res), "{}"))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	output := strings.Trim(fmt.Sprint(res), "{}")
+	data := PageData{
+		Comp: output,
+	}
+	t, _ := template.ParseFiles("Website.html")
+	t.Execute(w, data)
+
 }
 
 func checkBday(month, day int) string {
