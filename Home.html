@@ -80,7 +80,7 @@
         }
     </style>
 </head>
-    
+
 <body>
     <!-- Navbar -->
 
@@ -97,7 +97,7 @@
         <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
             <a href="#" class="w3-bar-item w3-button w3-padding-large">About You</a>
             <a href="#" class="w3-bar-item w3-button w3-padding-large">Compatibility</a>
-            <a href="#" class="w3-bar-item w3-button w3-padding-large">Daily Reading</a>   
+            <a href="#" class="w3-bar-item w3-button w3-padding-large">Daily Reading</a>
         </div>
 
 
@@ -131,15 +131,15 @@
             </div>
 
         </header>
-         <!-- First Grid -->
-         <div class="w3-row-padding w3-padding-64 w3-container">
+        <!-- First Grid -->
+        <div class="w3-row-padding w3-padding-64 w3-container">
             <div class="w3-content">
                 <div class="w3-twothird">
                     <h1>What is HoroscopeX</h1>
                     <h5 class="w3-padding-32">HoroscopeX is our final project for Ecgr 4090: Cloud Native Architecture. Created by Will Fridy, Erwin Castro, Cole Healy, and Jessica Hicks. </h5>
-                    <h5 class="w3-padding-32">This website's aim is to give a your daily horisocop as well reduce the overload of information that similar websites tend to have. </h5>
-                    <h5 class="w3-padding-32">Here you will be able to see your daily horisocop, a small description of your sign, what sign your most compatible with, and your lucky numbers </h5>
-                    
+                    <h5 class="w3-padding-32">This website's aim is to give a your daily horoscope as well reduce the overload of information that similar websites tend to have. </h5>
+                    <h5 class="w3-padding-32">Here you will be able to see your daily horoscope, a small description of your sign, what sign your most compatible with, and your lucky numbers </h5>
+
                 </div>
 
                 <div class="w3-third w3-center">
@@ -165,72 +165,71 @@
             </div>
         </div> -->
 
-    <script>
-        // Used to toggle the menu on small screens when clicking on the menu button
-        function myFunction() {
-            var x = document.getElementById("navDemo");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-
-        //Opens Tabs
-        function openTab(evt, tabName) {
-            // Declare all variables
-            var i, tabcontent, tablinks;
-
-            // Get all elements with class="tabcontent" and hide them
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+        <script>
+            // Used to toggle the menu on small screens when clicking on the menu button
+            function myFunction() {
+                var x = document.getElementById("navDemo");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
             }
 
-            // Get all elements with class="tablinks" and remove the class "active"
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            //Opens Tabs
+            function openTab(evt, tabName) {
+                // Declare all variables
+                var i, tabcontent, tablinks;
+
+                // Get all elements with class="tabcontent" and hide them
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+
+                // Get all elements with class="tablinks" and remove the class "active"
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+
+                // Show the current tab, and add an "active" class to the button that opened the tab
+                document.getElementById(tabName).style.display = "block";
+                evt.currentTarget.className += " active";
             }
 
-            // Show the current tab, and add an "active" class to the button that opened the tab
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
+            // Get the modal
+            var modal = document.getElementById("myModal");
 
-        // Get the modal
-        var modal = document.getElementById("myModal");
+            // Get the button that opens the modal
+            var btn = document.getElementById("myBtn");
 
-        // Get the button that opens the modal
-        var btn = document.getElementById("myBtn");
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+            // When the user clicks on the button, open the modal
+            btn.onclick = function() {
+                modal.style.display = "block";
+            }
 
-        // When the user clicks on the button, open the modal
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
                 modal.style.display = "none";
             }
-        }
 
-    </script>
-    <button id="myButton" class="float-left submit-button" >Home</button>
-    <script type="text/javascript">
-        document.getElementById("myButton").onclick = function() {
-            location.href = "localhost:8000/home";
-        };
-    </script>   
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+        <button id="myButton" class="float-left submit-button">Home</button>
+        <script type="text/javascript">
+            document.getElementById("myButton").onclick = function() {
+                location.href = "localhost:8000/home";
+            };
+        </script>
 </body>
 
 
